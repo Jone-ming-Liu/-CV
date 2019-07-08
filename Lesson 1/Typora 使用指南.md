@@ -4,7 +4,9 @@
 
 ##### 1.Typora 使用指南
 
-**（1）视频教程**：Markdown 神器 Typora 使用指南 ---B站视频   **地址**：https://www.bilibili.com/video/av32901294?from=search&seid=8493313559506962805   **评价**：很详细的教程，值得入门好好学习！
+**（1）视频教程**：Markdown 神器 Typora 使用指南 ---B站视频  
+**地址**：https://www.bilibili.com/video/av32901294?from=search&seid=8493313559506962805  
+**评价**：很详细的教程，值得入门好好学习！
 
 ##### （2）博客教程： https://blog.csdn.net/cris_zz/article/details/82919401
 
