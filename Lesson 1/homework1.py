@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 img=cv.imread("F:\\System Desktop\\Desktop\\xueping.jpg") #读取图片
 
-
+'''
 print(img)          #按照多维数组的形式展示图片
 print(img.shape)    #显示图片属性
 
@@ -150,7 +150,123 @@ if key ==27:
     cv.destroyAllWindows()
 
 
+#彩色图片直方图均衡化
+yun_image=cv.cvtColor(img,cv.COLOR_BGR2YUV) #彩色图片BGR空间转到YUV空间
+yun_image[:,:,0]=cv.equalizeHist(yun_image[:,:,0])#Y轴的均衡化处理
+change_image=cv.cvtColor(yun_image,cv.COLOR_YUV2BGR)#YUV空间转到BGR空间
+cv.imshow("img",img)
+cv.imshow("change_image",change_image)
+key=cv.waitKey()
+if key ==27:
+    cv.destroyAllWindows()
 
 
+# 图片旋转操作 Rotation
+print(img.shape)
+rows,cols=img.shape[:2]
+M1=cv.getRotationMatrix2D((rows/2,cols/2),90,1)  #旋转90°
+M2=cv.getRotationMatrix2D((rows/2,cols/2),45,1)  #旋转45°
+M3= cv.getRotationMatrix2D((rows/2,cols/2),30,1) #旋转30°
+
+res1 = cv.warpAffine(img,M1,(cols,rows))
+res2=cv.warpAffine(img,M2,(rows,cols))
+res3=cv.warpAffine(img,M3,(rows,cols))
+cv.namedWindow("res1", cv.WINDOW_NORMAL)
+#cv.namedWindow("窗口名",cv.WINDOW_NORMAL) 将inshow()图片的窗口可以拖动
+cv.namedWindow("res2",cv.WINDOW_NORMAL)
+cv.namedWindow("res3",cv.WINDOW_NORMAL)
+cv.imshow("res1",res1)
+cv.imshow("res2",res2)
+cv.imshow("res3",res3)
+key=cv.waitKey()
+if key ==27:
+    cv.destroyAllWindows()
     
     
+#旋转45°出现的黑框解除的方法
+#（1）用broderValue=(255,255,255)进行填充或者复制边缘填充    
+rows,cols=img.shape[:2]
+M1=cv.getRotationMatrix2D((rows/2,cols/2),45,1)  #旋转45°    
+r1 = cv.warpAffine(img,M1,(cols,rows),borderValue=(255,255,255))
+#复制边缘填充  
+r2=cv.warpAffine(img,M1,(cols,rows), borderMode=cv.INTER_LINEAR, borderValue=cv.BORDER_REPLICATE)
+cv.namedWindow("r1",cv.WINDOW_NORMAL) 
+cv.namedWindow("r2",cv.WINDOW_NORMAL)   
+cv.imshow("r1",r1)   
+cv.imshow("r2",r2)  
+key=cv.waitKey()
+if key ==27:
+    cv.destroyAllWindows()
+    
+    
+    
+    
+#图像平移操作 transform  
+
+rows,cols=img.shape[:2]
+M4=np.array(([1,0,20],[0,1,80]),dtype=np.float32)
+trans_img=cv.warpAffine(img,M4,(rows+200,cols+200))
+cv.namedWindow("trans_img",cv.WINDOW_NORMAL)
+cv.imshow("trans_img",trans_img)
+key=cv.waitKey()
+if key == 27 or key == ord("q"):
+    cv.destroyAllWindows()
+'''
+'''
+#Affine 变换 （仿射变化）
+cols,rows=img.shape[:2]
+pts1 = np.float32([[0, 0], [cols - 1, 0], [0, rows - 1]])
+pts2 = np.float32([[cols * 0.2, rows * 0.1], [cols * 0.9, rows * 0.2], [cols * 0.1, rows * 0.9]])
+M = cv.getAffineTransform(pts1, pts2)
+dst = cv.warpAffine(img, M, (cols, rows),borderValue=(255,255,255))
+cv.namedWindow("image",cv.WINDOW_NORMAL)
+cv.imshow("image", dst)
+cv.namedWindow("img",cv.WINDOW_NORMAL)
+cv.imshow("img", img)
+k = cv.waitKey()
+if k == 27:
+    cv.destroyAllWindows()
+'''
+
+'''
+#投影变换
+tuoying_img=cv.imread("F:\\System Desktop\\Desktop\\touying.jpg")
+rows,cols=tuoying_img.shape[:2]
+cv.namedWindow("tuoying_img",cv.WINDOW_NORMAL)
+cv.imshow("tuoying_img",tuoying_img)
+k = cv.waitKey()
+if k == 27:
+    cv.destroyAllWindows()
+'''
+
+
+
+tuoying_img=cv.imread("F:\\System Desktop\\Desktop\\touying.jpg")
+rows,cols=tuoying_img.shape[:2]
+
+m1=[516,355]
+m2=[705,364]
+m3=[503,552]
+m4=[734,559]
+d1=[516,355]
+d2=[705,364]
+d3=[503,552]
+d4=[734,559]
+
+
+
+pts1 = np.float32([m1, m2, m3, m4])
+pts2 = np.float32([d1,d2,d3,d4])
+M_warp = cv.getPerspectiveTransform(pts1, pts2)
+img_warp = cv.warpPerspective(tuoying_img, M_warp,(rows,cols),borderValue=(255,255,255))
+cv.namedWindow("img_warp",cv.WINDOW_NORMAL)
+cv.imshow("img_warp",img_warp)
+k = cv.waitKey()
+if k == 27:
+    cv.destroyAllWindows()
+
+
+
+
+
+
