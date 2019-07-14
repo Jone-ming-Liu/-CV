@@ -6,7 +6,6 @@ import matplotlib.pyplot as plt
 
 img=cv.imread("F:\\System Desktop\\Desktop\\xueping.jpg") #读取图片
 
-'''
 print(img)          #按照多维数组的形式展示图片
 print(img.shape)    #显示图片属性
 
@@ -211,8 +210,7 @@ cv.imshow("trans_img",trans_img)
 key=cv.waitKey()
 if key == 27 or key == ord("q"):
     cv.destroyAllWindows()
-'''
-'''
+
 #Affine 变换 （仿射变化）
 cols,rows=img.shape[:2]
 pts1 = np.float32([[0, 0], [cols - 1, 0], [0, rows - 1]])
@@ -226,9 +224,7 @@ cv.imshow("img", img)
 k = cv.waitKey()
 if k == 27:
     cv.destroyAllWindows()
-'''
 
-'''
 #投影变换
 tuoying_img=cv.imread("F:\\System Desktop\\Desktop\\touying.jpg")
 rows,cols=tuoying_img.shape[:2]
@@ -237,7 +233,7 @@ cv.imshow("tuoying_img",tuoying_img)
 k = cv.waitKey()
 if k == 27:
     cv.destroyAllWindows()
-'''
+
 
 
 
